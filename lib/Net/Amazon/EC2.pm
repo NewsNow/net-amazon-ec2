@@ -3906,6 +3906,11 @@ sub run_instances {
 		PrivateIpAddress								=> { type => SCALAR, optional => 1 },
 		'IamInstanceProfile.Name'								=> { type => SCALAR, optional => 1 },
 		'IamInstanceProfile.Arn'								=> { type => SCALAR, optional => 1 },
+		'NetworkInterface.0.AssociatePublicIpAddress'								=> { type => SCALAR, optional => 1 },
+		'NetworkInterface.0.SubnetId'								=> { type => SCALAR, optional => 1 },
+		'NetworkInterface.0.DeviceIndex'								=> { type => SCALAR, optional => 1 },
+		'NetworkInterface.0.PrivateIpAddress'								=> { type => SCALAR, optional => 1 },
+		'NetworkInterface.0.SecurityGroupId'								=> { type => SCALAR | ARRAYREF, optional => 1 },
 
 	});
 	
@@ -3929,6 +3934,16 @@ sub run_instances {
 		}
 	}
 
+	# If we have a array ref of instances lets split them out into their NetworkInterface.0.SecurityGroupId.n format
+	if (ref ($args{'NetworkInterface.0.SecurityGroupId'}) eq 'ARRAY') {
+		my $security_groups	= delete $args{'NetworkInterface.0.SecurityGroupId'};
+		my $count			= 1;
+		foreach my $security_group (@{$security_groups}) {
+			$args{"NetworkInterface.0.SecurityGroupId." . $count} = $security_group;
+			$count++;
+		}
+	}
+    
 	# If we have a array ref of block device virtual names lets split them out into their BlockDeviceMapping.n.VirtualName format
 	if (ref ($args{'BlockDeviceMapping.VirtualName'}) eq 'ARRAY') {
 		my $virtual_names	= delete $args{'BlockDeviceMapping.VirtualName'};
