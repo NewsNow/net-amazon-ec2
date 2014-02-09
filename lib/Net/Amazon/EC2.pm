@@ -200,7 +200,7 @@ has 'SecurityToken'	=> ( is => 'ro',
 );
 has 'debug'				=> ( is => 'ro', isa => 'Str', required => 0, default => 0 );
 has 'signature_version'	=> ( is => 'ro', isa => 'Int', required => 1, default => 2 );
-has 'version'			=> ( is => 'ro', isa => 'Str', required => 1, default => '2012-07-20' );
+has 'version'			=> ( is => 'ro', isa => 'Str', required => 1, default => '2013-10-15' );
 has 'region'			=> ( is => 'ro', isa => 'Str', required => 1, default => 'us-east-1' );
 has 'ssl'				=> ( is => 'ro', isa => 'Bool', required => 1, default => 1 );
 has 'return_errors'     => ( is => 'ro', isa => 'Bool', default => 0 );
