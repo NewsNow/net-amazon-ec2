@@ -1119,7 +1119,7 @@ status
 sub create_volume {
 	my $self = shift;
 	my %args = validate( @_, {
-		Size				=> { type => SCALAR },
+		Size				=> { type => SCALAR, optional => 1 },
 		SnapshotId			=> { type => SCALAR, optional => 1 },
 		AvailabilityZone	=> { type => SCALAR },
                 VolumeType		=> { type => SCALAR, optional => 1 },
